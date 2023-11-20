@@ -1,5 +1,11 @@
 fastapi
-uvicorn
-sqlalchemy
+geoalchemy2
+gunicorn
+httptools
 psycopg2-binary
-python-dotenv
+pydantic
+pydantic_settings
+shapely
+sqlalchemy
+uvicorn
+uvloop
