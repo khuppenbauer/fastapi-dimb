@@ -1,11 +1,12 @@
 # main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import igs
+from .routes import igs, postcodes
 
 app = FastAPI()
 
 app.include_router(igs.router, prefix='/api/igs')
+app.include_router(postcodes.router, prefix='/api/postcodes')
 
 app.add_middleware(
   CORSMiddleware,
