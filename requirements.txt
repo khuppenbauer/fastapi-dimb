@@ -4,8 +4,11 @@ gunicorn
 httptools
 psycopg2-binary
 pydantic
+python-jose
+python-multipart
 pydantic_settings
 shapely
 sqlalchemy
+typing_extensions
 uvicorn
 uvloop

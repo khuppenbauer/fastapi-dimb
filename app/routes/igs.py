@@ -6,6 +6,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 from .. import utils, models, schemas
 from ..database import get_db
+from ..auth import authorize
 
 router = APIRouter()
 
@@ -36,6 +37,10 @@ def get_igs(simplified: str = Query("0.005"), db: Session = Depends(get_db)):
     "properties": properties
   }
 
+@router.get("/status", dependencies=[Depends(authorize)])
+def read_status():
+  return {"status": "ok"}
+
 @router.get("/{name}")
 def get_ig(name: str, simplified: str = Query("0.005"), db: Session = Depends(get_db)):
   ig = db.query(models.DimbIg).filter(models.DimbIg.name == name, models.DimbIg.simplified == simplified).scalar()
@@ -46,7 +51,7 @@ def get_ig(name: str, simplified: str = Query("0.005"), db: Session = Depends(ge
   return ig
 
 
-@router.post("/")
+@router.post("/", dependencies=[Depends(authorize)])
 def update_ig(item: schemas.DimbIgInput, simplified: str = Query("0.005"), db: Session = Depends(get_db)):
   ig = db.query(models.DimbIg).filter(models.DimbIg.name == item.name, models.DimbIg.simplified == simplified).scalar()
 
@@ -66,7 +71,7 @@ def update_ig(item: schemas.DimbIgInput, simplified: str = Query("0.005"), db: S
   return ig
 
 
-@router.put("/{name}")
+@router.put("/{name}", dependencies=[Depends(authorize)])
 def update_ig(name: str, item: schemas.DimbIgInput, simplified: str = Query("0.005"), db: Session = Depends(get_db)):
   ig = db.query(models.DimbIg).filter(models.DimbIg.name == name, models.DimbIg.simplified == simplified).scalar()
 
@@ -84,7 +89,7 @@ def update_ig(name: str, item: schemas.DimbIgInput, simplified: str = Query("0.0
   return ig
 
 
-@router.delete("/{name}")
+@router.delete("/{name}", dependencies=[Depends(authorize)])
 def delete_ig(name: str, simplified: str = Query("0.005"), db: Session = Depends(get_db)):
   ig = db.query(models.DimbIg).filter(models.DimbIg.name == name, models.DimbIg.simplified == simplified).scalar()
   
