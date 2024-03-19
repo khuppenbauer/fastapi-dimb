@@ -1,6 +1,6 @@
 # utils.py
 from typing import List, Union, Dict
-from shapely.geometry import shape, mapping, Polygon, MultiPolygon
+from shapely.geometry import shape, mapping
 
 GeoJsonFeatureType = Dict[str, Union[str, List[Union[str, List[Union[float, List[List[float]]]]]]]]
 

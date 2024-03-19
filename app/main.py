@@ -1,11 +1,11 @@
 # main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from .routes import igs, postcodes, token
+from .routes import areas, postcodes, token
 
 app = FastAPI()
 
-app.include_router(igs.router, prefix='/api/igs')
+app.include_router(areas.router, prefix='/api/areas')
 app.include_router(postcodes.router, prefix='/api/postcodes')
 app.include_router(token.router)
 
